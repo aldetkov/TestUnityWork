@@ -1,5 +1,4 @@
 ﻿using AxGrid;
-using AxGrid.Tools.Binders;
 
 public class BankCoinsAccount
 {
