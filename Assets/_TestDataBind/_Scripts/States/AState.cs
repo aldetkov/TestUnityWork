@@ -3,20 +3,15 @@ using AxGrid.FSM;
 using AxGrid.Model;
 using System;
 using Random = UnityEngine.Random;
-using Debug = UnityEngine.Debug;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class AState : FSMState
 {
-    private bool _autoChange;
-
     #region States
 
-    [Enter]
     private protected virtual void OnEnter()
     {
-        ChangeAutoChange();
         SetFieldAudioClip();
 
         SetTextCurrentStateName();
@@ -61,6 +56,9 @@ public abstract class AState : FSMState
     {
         string text = Model.GetString(TextFieldName.StateToChange.ToString());
 
+        if (this.GetType().Name == text)
+            return;
+
         if (Settings.Fsm.ContainsState(text))
             Parent.Change(text);
     }
@@ -69,25 +67,17 @@ public abstract class AState : FSMState
 
     private void SetFieldAudioClip()
     {
-        Settings.Model.Set(AudioClipFieldName.ClickSound.ToString(), Camera.main.transform.position);
-    }
-
-    private void ChangeAutoChange()
-    {
-        _autoChange = Model.GetBool(ToggleFieldName.AutoChange.ToString());
+        Settings.Model.Inc(AudioClipFieldName.ClickSound.ToString());
     }
 
     private void SetAutoChange()
     {
-        _autoChange = Model.GetBool(ToggleFieldName.AutoChange.ToString());
-        Debug.Log(_autoChange);
-
         TryAutoChangeState();
     }
 
     private void TryAutoChangeState()
     {
-        if (!_autoChange)
+        if (!Model.GetBool(ToggleFieldName.AutoChange.ToString()))
             return;
 
         ChangeStateByText();

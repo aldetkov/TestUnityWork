@@ -15,16 +15,6 @@ public class ColorBind : MonoBehaviourExtBind
     private void OnAwakeThis()
     {
         _target = GetComponent<Graphic>();
-
-        switch (_target)
-        {
-            case Image image:
-                _target = image;
-                break;
-            case Text text:
-                _target = text;
-                break;
-        }
     }
 
     #endregion

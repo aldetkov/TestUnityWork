@@ -5,5 +5,11 @@ public class StateFour : AState
 {
     #region States
 
+    [Enter]
+    private protected override void OnEnter()
+    {
+        base.OnEnter();
+    }
+
     #endregion
 }

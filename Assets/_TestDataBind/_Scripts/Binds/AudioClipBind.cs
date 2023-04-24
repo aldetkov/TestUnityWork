@@ -10,9 +10,9 @@ public class AudioClipBind : MonoBehaviourExtBind
     #region Binds
 
     [Bind("On{_fieldName}Changed")]
-    public void OnValueChanged(Vector3 point)
+    public void OnValueChanged()
     {
-        AudioSource.PlayClipAtPoint(_audioClip, point);
+        AudioSource.PlayClipAtPoint(_audioClip, Camera.main.transform.position);
     }
 
     #endregion

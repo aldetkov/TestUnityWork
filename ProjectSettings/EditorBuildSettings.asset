@@ -4,5 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/_UniRxTest/_Scenes/SceneToLoad1.unity
+    guid: 3b057592054abea4581289ae99d2b6f2
+  - enabled: 1
+    path: Assets/_UniRxTest/_Scenes/SceneLoading.unity
+    guid: 6a0ca3c923eceec47877e5bf244be9de
+  - enabled: 1
+    path: Assets/_TestTask1/_Scene/Task1.unity
+    guid: 80dd080bb3bcef24fa510457dc8c1e19
+  - enabled: 1
+    path: Assets/_TestDataBind/_Scene/TestDataBindScene.unity
+    guid: 9855b3abe03e4bf4a963e3e262c82d79
+  - enabled: 1
+    path: Assets/_UniRxTest/_Scenes/SceneToLoad2.unity
+    guid: 96de344b5e302eb4886923435398abe0
   m_configObjects: {}
