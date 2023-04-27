@@ -1,26 +1,17 @@
-using AxGrid;
-using AxGrid.Base;
 using AxGrid.FSM;
-using AxGrid.Model;
-using UnityEngine;
 
 namespace TaskWorker
 {
     [State(StateKeys.workState)]
-    public class WorkState : FSMState
+    public class WorkState : PlaceState
     {
-        [Enter]
-        private void EnterThis()
+        protected override void Init()
         {
-            Model.Set(ModelKeys.stateView, StateKeys.workState);
+            bgColorKey = "workColor";
 
-            Model.EventManager.Invoke(ModelKeys.colorKey, StateKeys.workState);
-        }
+            placeButton = "workButton";
 
-        [Loop(1f)]
-        private void LoopThis()
-        {
-            Model.Inc(ModelKeys.cash, 1);
+            OnPlaceAction += ()=> Model.Inc(ModelKeys.cash, 1);
         }
     }
 }

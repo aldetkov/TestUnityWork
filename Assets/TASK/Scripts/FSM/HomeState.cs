@@ -3,14 +3,13 @@ using AxGrid.FSM;
 namespace TaskWorker
 {
     [State(StateKeys.homeState)]
-    public class HomeState : FSMState
+    public class HomeState : PlaceState
     {
-        [Enter]
-        private void EnterThis()
+        protected override void Init()
         {
-            Model.Set(ModelKeys.stateView, StateKeys.homeState);
+            bgColorKey = "homeColor";
 
-            Model.EventManager.Invoke(ModelKeys.colorKey, StateKeys.homeState);
+            placeButton = "homeButton";
         }
     }
 }

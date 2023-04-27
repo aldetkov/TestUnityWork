@@ -21,9 +21,7 @@ namespace TaskWorker
         [Bind(EventKeys.workerNextPlace)]
         private void GetNewDirection()
         {
-            var direction = Settings.Model.GetString(ModelKeys.workerDirection);
-
-            var targetPosition = (Vector3)Settings.Model.Get(direction);
+            var targetPosition = (Vector3)Settings.Model.Get(ModelKeys.placeKey);
 
             PathToNextPlace(targetPosition);
         }

@@ -31,13 +31,5 @@ namespace TaskWorker
         {
             Settings.Fsm.Update(Time.deltaTime);
         }
-
-        [Bind(EventKeys.sendWorker)]
-        private void SendWorkerToNextPlace(string targetPlace, string nextState)
-        {
-            Model.Set(ModelKeys.workerDirection, targetPlace);
-            Model.Set(ModelKeys.targetState, nextState);
-            Settings.Fsm.Change(StateKeys.onWayState);
-        }
     }
 }

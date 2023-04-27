@@ -8,10 +8,14 @@ namespace TaskWorker
     {
         [SerializeField] private string placeKey;
 
-        [OnAwake]
-        private void AddPositionsToModel()
+        [OnStart]
+        private void SetPlaceKeyAction()
         {
-            Settings.Model.Set(placeKey, transform.position);
+            Model.EventManager.AddAction($"On{placeKey}Click", SetPositionInModel);
+        }
+        private void SetPositionInModel()
+        {
+            Settings.Model.Set(ModelKeys.placeKey, transform.position);
         }
     }
 }

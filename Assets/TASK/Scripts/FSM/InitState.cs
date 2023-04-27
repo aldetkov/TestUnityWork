@@ -1,6 +1,7 @@
 using AxGrid;
-using AxGrid.Base;
 using AxGrid.FSM;
+using AxGrid.Model;
+
 namespace TaskWorker
 {
     [State(StateKeys.initState)]
@@ -14,6 +15,14 @@ namespace TaskWorker
             Settings.Model.EventManager.Invoke(EventKeys.workerToStartPos);
 
             Model.Set(ModelKeys.cash, defaultCashCount);
+        }
+
+        [Bind("OnBtn")]
+        private void NextPlace(string btnName)
+        {
+            Model.Set(ModelKeys.targetState, btnName);
+
+            Settings.Fsm.Change(StateKeys.onWayState);
         }
     }
 }

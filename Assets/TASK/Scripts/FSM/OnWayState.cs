@@ -1,4 +1,6 @@
+using AxGrid;
 using AxGrid.FSM;
+using AxGrid.Model;
 
 namespace TaskWorker
 {
@@ -9,20 +11,19 @@ namespace TaskWorker
         private void EnterThis()
         {
             Model.Set(ModelKeys.stateView, StateKeys.onWayState);
-
-            Model.Set(ModelKeys.enabledButton, false);
+            Model.Set("globalButtonEnable", false);
         }
 
         [One(0)]
         private void SendWorkerToTarget()
         {
-            Model.EventManager.Invoke(EventKeys.workerNextPlace, Model.GetString(ModelKeys.targetState));
+            Model.EventManager.Invoke(EventKeys.workerNextPlace);
         }
 
         [Exit]
         private void ExitThis()
         {
-            Model.Set(ModelKeys.enabledButton, true);
+            Model.Set("globalButtonEnable", true);
         }
     }
 }

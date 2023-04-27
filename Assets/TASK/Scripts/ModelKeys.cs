@@ -5,7 +5,8 @@ public static class ModelKeys
     public const string cash = "cash";
     public const string stateView = "stateView";
     public const string enabledButton = "buttonEnable";
-    public const string colorKey = "colorKey";
+    
+    public const string placeKey = "placeKey";
 }
 public static class StateKeys
 {
@@ -18,7 +19,8 @@ public static class StateKeys
 
 public static class EventKeys
 {
-    public const string sendWorker = "sendWorker";
     public const string workerToStartPos = "workerToStartPos";
     public const string workerNextPlace = "workerNextPlace";
+
+    public const string colorChange = "colorKey";
 }

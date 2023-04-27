@@ -1,24 +1,17 @@
-using AxGrid;
-using AxGrid.Base;
 using AxGrid.FSM;
 
 namespace TaskWorker
 {
     [State(StateKeys.storeState)]
-    public class StoreState : FSMState
+    public class StoreState : PlaceState
     {
-        [Enter]
-        private void EnterThis()
+        protected override void Init()
         {
-            Model.Set(ModelKeys.stateView, StateKeys.storeState);
+            bgColorKey = "storeColor";
 
-            Model.EventManager.Invoke(ModelKeys.colorKey, StateKeys.storeState);
-        }
+            placeButton = "storeButton";
 
-        [Loop(1f)]
-        private void LoopThis()
-        {
-            Model.Dec(ModelKeys.cash, 1);
+            OnPlaceAction += () => Model.Dec(ModelKeys.cash, 1);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using AxGrid.Base;
+using AxGrid.Model;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -18,6 +20,8 @@ namespace AxGrid.Tools.Binders{
 		public string buttonName = "";
 
 		public string enableField = "";
+
+		public const string globalButtonEnable = "globalButtonEnable";
 
 		/// <summary>
 		/// Включена по умолчанию
@@ -72,7 +76,9 @@ namespace AxGrid.Tools.Binders{
 		[OnStart]
 		public void start()
 		{
-			Model.EventManager.AddAction($"On{enableField}Changed", OnItemEnable);
+            Model.EventManager.AddAction($"On{enableField}Changed", OnItemEnable);
+            Model.EventManager.AddAction($"On{globalButtonEnable}Changed", OnGlobalButtonEnable);
+
 			if (keyField == "")
 				keyField = $"{name}Key";
 			if (keyField != "")
@@ -84,7 +90,7 @@ namespace AxGrid.Tools.Binders{
 			
 		}
 
-		public void OnKeyChanged()
+        public void OnKeyChanged()
 		{
 			key = Model.GetString(keyField);
 		}
@@ -99,6 +105,11 @@ namespace AxGrid.Tools.Binders{
 			if (button.interactable != Model.GetBool(enableField, defaultEnable))
 				button.interactable = Model.GetBool(enableField, defaultEnable);
 		}
+
+		public void OnGlobalButtonEnable()
+		{
+			button.interactable = Model.GetBool(globalButtonEnable);
+        }
 
 		[OnDestroy]
 		public void onDestroy()
