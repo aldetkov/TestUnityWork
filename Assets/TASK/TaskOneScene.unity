@@ -196,7 +196,7 @@ PrefabInstance:
     - target: {fileID: 5103875482731377186, guid: 60dcc4b2ad703b64392c4a6ebef19074,
         type: 3}
       propertyPath: enableField
-      value: 
+      value: workButton
       objectReference: {fileID: 0}
     - target: {fileID: 5103875482731377186, guid: 60dcc4b2ad703b64392c4a6ebef19074,
         type: 3}
@@ -753,11 +753,11 @@ MonoBehaviour:
   globalModel: 0
   _allColors:
   - color: {r: 1, g: 0.9783717, b: 0, a: 0.59607846}
-    colorKey: homeState
+    colorKey: homeColor
   - color: {r: 1, g: 0.15566039, b: 0.15566039, a: 0.5176471}
-    colorKey: workState
+    colorKey: workColor
   - color: {r: 0.1532764, g: 0.9811321, b: 0, a: 0.69411767}
-    colorKey: storeState
+    colorKey: storeColor
   Bg: {fileID: 416864820}
   _colorChangeDuration: 0.5
 --- !u!1 &675308817
@@ -1274,7 +1274,7 @@ PrefabInstance:
     - target: {fileID: 5103875482731377186, guid: 60dcc4b2ad703b64392c4a6ebef19074,
         type: 3}
       propertyPath: enableField
-      value: 
+      value: homeButton
       objectReference: {fileID: 0}
     - target: {fileID: 5103875482731377186, guid: 60dcc4b2ad703b64392c4a6ebef19074,
         type: 3}
@@ -1724,7 +1724,7 @@ PrefabInstance:
     - target: {fileID: 5103875482731377186, guid: 60dcc4b2ad703b64392c4a6ebef19074,
         type: 3}
       propertyPath: enableField
-      value: 
+      value: storeButton
       objectReference: {fileID: 0}
     - target: {fileID: 5103875482731377186, guid: 60dcc4b2ad703b64392c4a6ebef19074,
         type: 3}

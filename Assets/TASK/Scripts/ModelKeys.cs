@@ -4,7 +4,6 @@ public static class ModelKeys
     public const string targetState = "targetState";
     public const string cash = "cash";
     public const string stateView = "stateView";
-    public const string enabledButton = "buttonEnable";
     
     public const string placeKey = "placeKey";
 }
