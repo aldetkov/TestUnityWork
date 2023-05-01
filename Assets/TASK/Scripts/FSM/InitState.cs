@@ -22,7 +22,7 @@ namespace TaskWorker
         {
             Model.Set(ModelKeys.targetState, btnName);
 
-            Settings.Fsm.Change(StateKeys.onWayState);
+            Parent.Change(StateKeys.onWayState);
         }
     }
 }

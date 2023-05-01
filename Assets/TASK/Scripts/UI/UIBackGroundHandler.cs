@@ -4,36 +4,39 @@ using AxGrid.Path;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIBackGroundHandler : MonoBehaviourExtBind
+namespace TaskWorker
 {
-    [SerializeField] private BgColor[] _allColors;
-
-    [SerializeField] private Image Bg;
-
-    [SerializeField] private float _colorChangeDuration = 1;
-
-    [OnAwake]
-    private void OnAwakeThis()
+    public class UIBackGroundHandler : MonoBehaviourExtBind
     {
-        foreach (var bgColor in _allColors)
+        [SerializeField] private BgColor[] _allColors;
+
+        [SerializeField] private Image Bg;
+
+        [SerializeField] private float _colorChangeDuration = 1;
+
+        [OnAwake]
+        private void OnAwakeThis()
         {
-            Model.Set(bgColor.colorKey, bgColor.color);
+            foreach (var bgColor in _allColors)
+            {
+                Model.Set(bgColor.colorKey, bgColor.color);
+            }
+        }
+
+        [Bind(EventKeys.colorChange)]
+        private void OnChangeColor(string targetState)
+        {
+            var targetColor = (Color)Model.Get(targetState);
+
+            Path.EasingLinear(_colorChangeDuration, 0, 1, (f) => Bg.color = Color.Lerp(Bg.color, targetColor, f / 2));
         }
     }
 
-    [Bind(EventKeys.colorChange)]
-    private void OnChangeColor(string targetState)
+    [System.Serializable]
+    public struct BgColor
     {
-        var targetColor = (Color)Model.Get(targetState);
+        public Color color;
 
-        Path.EasingLinear(_colorChangeDuration, 0, 1, (f) => Bg.color = Color.Lerp(Bg.color, targetColor, f / 2));
+        public string colorKey;
     }
-}
-
-[System.Serializable]
-public struct BgColor
-{
-    public Color color;
-
-    public string colorKey;
 }

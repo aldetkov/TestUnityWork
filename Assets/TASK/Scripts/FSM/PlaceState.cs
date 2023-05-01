@@ -3,48 +3,51 @@ using AxGrid.FSM;
 using AxGrid.Model;
 using System;
 
-public abstract class PlaceState : FSMState
+namespace TaskWorker
 {
-    protected Action OnPlaceAction;
-
-    protected string bgColorKey;
-
-    protected string placeButton;
-
-    protected PlaceState()
+    public abstract class PlaceState : FSMState
     {
-        Init();
-    }
+        protected Action OnPlaceAction;
 
-    protected abstract void Init();
+        protected string bgColorKey;
 
-    [Enter]
-    private void EnterThis()
-    {
-        Model.Set(ModelKeys.stateView, Settings.Fsm.CurrentStateName);
+        protected string placeButton;
 
-        Model.EventManager.Invoke(EventKeys.colorChange, bgColorKey);
+        protected PlaceState()
+        {
+            Init();
+        }
 
-        Model.Set(placeButton, false);
-    }
+        protected abstract void Init();
 
-    [Loop(1f)]
-    private void WorkerPlaceAction()
-    {
-        OnPlaceAction?.Invoke();
-    }
+        [Enter]
+        private void EnterThis()
+        {
+            Model.Set(ModelKeys.stateView, Settings.Fsm.CurrentStateName);
 
-    [Exit]
-    private void ExitThis()
-    {
-        Model.Set(placeButton, true);
-    }
+            Model.EventManager.Invoke(EventKeys.colorChange, bgColorKey);
 
-    [Bind("OnBtn")]
-    private void NextPlace(string btnName)
-    {
-        Model.Set(ModelKeys.targetState, btnName);
+            Model.Set(placeButton, false);
+        }
 
-        Parent.Change(StateKeys.onWayState);
+        [Loop(1f)]
+        private void WorkerPlaceAction()
+        {
+            OnPlaceAction?.Invoke();
+        }
+
+        [Exit]
+        private void ExitThis()
+        {
+            Model.Set(placeButton, true);
+        }
+
+        [Bind("OnBtn")]
+        private void NextPlace(string btnName)
+        {
+            Model.Set(ModelKeys.targetState, btnName);
+
+            Parent.Change(StateKeys.onWayState);
+        }
     }
 }
