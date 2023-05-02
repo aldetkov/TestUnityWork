@@ -1,36 +1,21 @@
 using AxGrid.FSM;
-using AxGrid.Model;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace CardTask
 {
-    [State(StateKeys.translateState)]
-    public class OnTranslateState : FSMState
+    [State(StateKeys.OnTranslateState)]
+    public class OnTranslateState : AbstractState
     {
+        private const string objectDirection = ModelKeys.tableCollection;
         [Enter]
         private void OnEnterThis()
         {
             var translatedCard = Model.Get<Card>(ModelKeys.translatedCard);
 
-            Model.GetList<Card>(ModelKeys.userCollection).Remove(translatedCard);
+            Model.TranslateListObject(translatedCard.parentListName, objectDirection, translatedCard);
 
-            Model.GetList<Card>(ModelKeys.tableCollection).Add(translatedCard);
+            translatedCard.parentListName = objectDirection;
 
-            Model.EventManager.Invoke(EventKeys.OnCardTranslate, translatedCard);
-        }
-
-        [Bind(ToolsKeys.btnClickKey)]
-        private void OnButtonClick(string name)
-        {
-            Parent.Change(StateKeys.OnDrawState);
-        }
-
-        [Bind(EventKeys.OnCardClick)]
-        private void OnCardClick()
-        {
-            Parent.Change(StateKeys.translateState);
+            Model.EventManager.Invoke(EventKeys.OnTranslateCard, translatedCard);
         }
     }
 }

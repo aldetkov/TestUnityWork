@@ -1,52 +1,50 @@
 using AxGrid;
-using AxGrid.FSM;
-using CardTask;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(RectTransform))]
-public class CardObject : BasePoolObject, IPointerClickHandler
+namespace CardTask
 {
-    [SerializeField] private string _name;
-
-    [SerializeField] private Image _renderer;
-
-    [SerializeField] private CardAnimateHandler _animateHandler;
-
-    private Card _currentCard;
-
-    public void Construct(string name, Sprite sprite)
+    [RequireComponent(typeof(RectTransform))]
+    public class CardObject : BasePoolObject
     {
-        _name = name;
+        [SerializeField] private string _name;
 
-        _renderer.sprite = sprite;
+        [SerializeField] private Image _renderer;
+
+        [SerializeField] private CardAnimateHandler _animateHandler;
+
+        public  Card CurrentCard { get; private set; }
+
+        public void Construct(string name, Sprite sprite)
+        {
+            _name = name;
+
+            _renderer.sprite = sprite;
+        }
+
+        public void SetCurrentCard(Card card)
+        {
+            CurrentCard = card;
+        }
+
+        public void SetViewRect(RectTransform viewRect)
+        {
+            _animateHandler.SetUiRect(viewRect);
+        }
     }
 
-    public void SetCurrentCard(Card card)
+    public class Card
     {
-        _currentCard = card;
-    }
+        public string id;
 
-    public void SetViewRect(RectTransform viewRect)
-    {
-        _animateHandler.SetUiRect(viewRect);
-    }
+        public string parentListName;
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Settings.Model.Set(ModelKeys.translatedCard, _currentCard);
+        public Card(string id, string parentListName)
+        {
+            this.id = id;
 
-        Settings.Fsm.Invoke(EventKeys.OnCardClick);
-    }
-}
-
-public class Card
-{
-    public string id;
-
-    public Card(string id)
-    {
-        this.id = id;
+            this.parentListName = parentListName;
+        }
     }
 }

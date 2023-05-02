@@ -8,44 +8,75 @@ namespace CardTask
 {
     public class CardViewHandler : MonoBehaviourExtBind
     {
-        [SerializeField] private RectTransform _cardUserParent;
+        [SerializeField] private CardObjectHandler _cardObjects;
 
-        [SerializeField] private RectTransform _cardTableParent;
-
-        [SerializeField] private List<RectTransform> _cardUserCells;
-
-        [SerializeField] private List<RectTransform> _cardTableCells;
+        [SerializeField] private List<TablePlace> _tablePlaces;
 
         [Bind(EventKeys.OnAddCard)]
-        private void AddElement(List<Card> userCollection)
+        private void AddNewElement(List<Card> collection)
         {
-            try
-            {
-                var newUiElement = _cardUserCells.Find(t => !t.gameObject.activeSelf);
+            var currentCard = collection.Last();
 
-                newUiElement.gameObject.SetActive(true);
+            var newCardObject = _cardObjects.GetCard(currentCard);
 
-                Model.EventManager.Invoke(EventKeys.OnGetNewCard, userCollection.Last(), _cardUserParent, newUiElement);
-            }
+            var targetPlace = _tablePlaces.Find(p => p.placeId == currentCard.parentListName);
 
-            catch (System.Exception)
-            {
-                throw new System.Exception("User have Max Cards");
-            }
+            var emptyCell = GetEmtyCell(targetPlace.cardCells);
+
+            newCardObject.transform.SetParent(targetPlace.cardParent);
+
+            newCardObject.SetViewRect(emptyCell);
 
             Model.EventManager.Invoke(EventKeys.OnMoveCards);
         }
 
-        [Bind(EventKeys.OnCardTranslate)]
+        [Bind(EventKeys.OnRemoveCard)]
+        private void RemoveElement(Card removedCard)
+        {
+            _cardObjects.RemoveCard(removedCard);
+        }
+
+        [Bind(EventKeys.OnTranslateCard)]
         private void TranslateElement(Card translatedCard)
         {
-            var newUiElement = _cardTableCells.Find(t => !t.gameObject.activeSelf);
+            var targetPlace = _tablePlaces.Find(p => p.placeId == translatedCard.parentListName);
 
-            newUiElement.gameObject.SetActive(true);
+            var emptyCell = GetEmtyCell(targetPlace.cardCells);
 
-            Model.EventManager.Invoke(EventKeys.OnSetTranslatedCard, translatedCard, _cardTableParent, newUiElement);
+            _cardObjects.TranslateCard(translatedCard, targetPlace.cardParent, emptyCell);
 
             Model.EventManager.Invoke(EventKeys.OnMoveCards);
+        }
+
+        private RectTransform GetEmtyCell(List<RectTransform> targetPlace)
+        {
+            try
+            {
+                var newUiElement = targetPlace.Find(t => !t.gameObject.activeSelf);
+
+                newUiElement.SetSiblingIndex(0);
+
+                newUiElement.gameObject.SetActive(true);
+
+                return newUiElement;
+            }
+
+            catch (System.Exception)
+            {
+                Debug.Log("Place is full");
+
+                return null;
+            }
+        }
+
+        [System.Serializable]
+        public class TablePlace
+        {
+            public string placeId;
+
+            public RectTransform cardParent;
+
+            public List<RectTransform> cardCells;
         }
     }
 }

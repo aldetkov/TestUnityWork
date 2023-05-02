@@ -1,6 +1,4 @@
-using AxGrid;
 using AxGrid.Base;
-using AxGrid.Model;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,29 +37,31 @@ namespace CardTask
             }
         }
 
-
-        [Bind(EventKeys.OnGetNewCard)]
-        private void GetCard(Card card, RectTransform parent, RectTransform uiTransform)
+        public CardObject GetCard(Card card)
         {
             var gettedCard = _poolsDict[card.id].GetObject() as CardObject;
 
-            gettedCard.transform.SetParent(parent);
-
             gettedCard.SetCurrentCard(card);
 
-            gettedCard.SetViewRect(uiTransform);
-
             _existingCards.Add(card, gettedCard);
+
+            gettedCard.transform.SetParent(transform);
+
+            return gettedCard;
         }
 
-        [Bind(EventKeys.OnSetTranslatedCard)]
-        private void TranslateCard(Card card, RectTransform parent, RectTransform uiTransform)
+        public void TranslateCard(Card card, RectTransform parent, RectTransform uiTransform)
         {
             var translatedCard = _existingCards[card];
 
             translatedCard.transform.SetParent(parent);
 
             translatedCard.SetViewRect(uiTransform);
+        }
+
+        public void RemoveCard(Card card)
+        {
+            _poolsDict[card.id].ReturnObject(_existingCards[card]);
         }
     }
 

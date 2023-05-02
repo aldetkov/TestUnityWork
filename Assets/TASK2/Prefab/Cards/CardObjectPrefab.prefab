@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7396150222050407132}
   - component: {fileID: 560997162831363312}
   - component: {fileID: 3942445994668716896}
+  - component: {fileID: 5924254782032508257}
   - component: {fileID: -9096373761194922767}
   m_Layer: 5
   m_Name: CardObjectPrefab
@@ -108,6 +109,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   globalModel: 0
   _selfRect: {fileID: 1498064772789011484}
+--- !u!114 &5924254782032508257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3346896224846542381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a909a15d7efd8ea4e87928e1da0466a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalModel: 0
+  buttonName: cardButton
+  defaultEnable: 1
+  _currentCardObject: {fileID: 560997162831363312}
 --- !u!114 &-9096373761194922767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,7 +150,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 1, g: 0.042452812, b: 0.042452812, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:

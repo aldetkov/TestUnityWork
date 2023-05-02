@@ -17,7 +17,6 @@ namespace CardTask
             if (_UiRect != null)
                 _UiRect.gameObject.SetActive(false);
 
-
             _UiRect = uiRect;
 
             Model.EventManager.AddAction(EventKeys.OnMoveCards, MoveCard);

@@ -5,19 +5,13 @@ using System.Collections.Generic;
 namespace CardTask
 {
     [State(StateKeys.initState)]
-    public class InitState : FSMState
+    public class InitState : AbstractState
     {
         [Enter]
         private void EnterThis()
         {
-            Model.Set(ModelKeys.userCollection, new List<Card>());
-            Model.Set(ModelKeys.tableCollection, new List<Card>());
-        }
-
-        [Bind(ToolsKeys.btnClickKey)]
-        private void OnDrawButtonClick()
-        {
-            Parent.Change(StateKeys.OnDrawState);
+            Model.Set(ModelKeys.userCollection, new List<Card>(10));
+            Model.Set(ModelKeys.tableCollection, new List<Card>(15));
         }
     }
 }
