@@ -33,7 +33,7 @@ namespace CardTask
 
 		protected virtual void InvokeEvent()
 		{
-			Settings.Fsm.Invoke(ToolsKeys.btnClickKey, buttonName);
+			Settings.Fsm.Invoke("btnClick", buttonName);
 			Model.EventManager.Invoke($"On{buttonName}Click");
 		}
 	}

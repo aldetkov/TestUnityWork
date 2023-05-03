@@ -7,7 +7,6 @@ namespace CardTask
 {
     public class SMMain : MonoBehaviourExtBind
     {
-        private string fieldName = "userCollect";
         [OnAwake]
         private void AwakeThis()
         {
@@ -29,12 +28,5 @@ namespace CardTask
         {
             Settings.Fsm.Update(Time.deltaTime);
         }
-
-        [OnRefresh(1)]
-        private void Test()
-        {
-
-        }
-
     }
 }
